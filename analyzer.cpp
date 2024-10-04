@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include "StringData.h"
+
 using namespace std;
 
 int linearSearch(vector<string> container, string element) {
@@ -30,18 +32,20 @@ int binarySearch(vector<string> container, string element) {
 }
 
 int main() {
-    vector<string> data = {"hello", "world", "test", "woah!"};
-    vector<string> search = {"test", "nope!", "woah!"};
+    vector<string> data = getStringData();
+    vector<string> search = {"not_here", "mzzzz", "aaaaa"};
     for (int i = 0; i < search.size(); i++) {
         chrono::time_point start_lin = chrono::system_clock::now();
         int lin_pos = linearSearch(data, search[i]);
         chrono::time_point end_lin = chrono::system_clock::now();
-        cout << "Linear Search - " << search[i] << " - " << lin_pos << endl;
+        std::chrono::duration<double> elapsed_lin = end_lin - start_lin;
+        cout << "Linear Search - " << search[i] << " - " << lin_pos << " - " << elapsed_lin << endl;
 
         chrono::time_point start_bin = chrono::system_clock::now();
         int bin_pos = binarySearch(data, search[i]);
         chrono::time_point end_bin = chrono::system_clock::now();
-        cout << "Binary Search - " << search[i] << " - " << bin_pos << endl;
+        std::chrono::duration<double> elapsed_bin = end_bin - start_bin;
+        cout << "Binary Search - " << search[i] << " - " << bin_pos << " - " << elapsed_bin << endl;
     }
     return 0;
 }
